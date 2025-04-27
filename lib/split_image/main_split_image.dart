@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+// import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -13,23 +13,41 @@ class _MainSplitImageState extends State<MainSplitImage> {
   double _x = 0, _y = 0, _width = 0, _height = 0;
 
   _loadImage() async {
-    final assetImage =
-        AssetImage("images/characters/broly.png", bundle: rootBundle);
-    final imageKey = await assetImage.obtainKey(ImageConfiguration());
-    final DecoderCallback decodeResize = (Uint8List bytes,
-        {bool? allowUpscaling, int? cacheWidth, int? cacheHeight}) {
-      return ui.instantiateImageCodec(bytes,
-          targetHeight: cacheHeight, targetWidth: cacheWidth);
-    };
-    var load = assetImage.load(imageKey, decodeResize);
-
-    ImageStreamListener listener = ImageStreamListener((info, err) async {
+    try {
+      final ByteData data = await rootBundle.load("images/characters/broly.png");
+      final Uint8List bytes = data.buffer.asUint8List();
+      final ui.Codec codec = await ui.instantiateImageCodec(
+        bytes,
+        targetWidth: 300,  // Optional: specify target width
+        targetHeight: 300, // Optional: specify target height
+      );
+      final ui.FrameInfo frameInfo = await codec.getNextFrame();
       setState(() {
-        _image = info.image;
+        _image = frameInfo.image;
       });
-    });
-    load.addListener(listener);
+    } catch (e) {
+      print("Error loading image: $e");
+    }
   }
+
+  // _loadImage() async {
+  //   final assetImage =
+  //       AssetImage("images/characters/broly.png", bundle: rootBundle);
+  //   final imageKey = await assetImage.obtainKey(ImageConfiguration());
+  //   final DecoderCallback decodeResize = (Uint8List bytes,
+  //       {bool? allowUpscaling, int? cacheWidth, int? cacheHeight}) {
+  //     return ui.instantiateImageCodec(bytes,
+  //         targetHeight: cacheHeight, targetWidth: cacheWidth);
+  //   };
+  //   var load = assetImage.load(imageKey, decodeResize);
+  //
+  //   ImageStreamListener listener = ImageStreamListener((info, err) async {
+  //     setState(() {
+  //       _image = info.image;
+  //     });
+  //   });
+  //   load.addListener(listener);
+  // }
 
   _reset() {
     setState(() {

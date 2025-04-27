@@ -218,7 +218,7 @@ class _PhotoConceptPageState extends State<PhotoConceptPage> {
                   padding: const EdgeInsets.all(12.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.redAccent,
+                      backgroundColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),

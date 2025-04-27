@@ -14,7 +14,9 @@ class CreditCardsConceptDetailPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Theme(
       data: ThemeData.dark().copyWith(
-        backgroundColor: Colors.black,
+        colorScheme: ColorScheme.dark().copyWith(
+          surface: Colors.black, // Replaces backgroundColor
+        ),
         scaffoldBackgroundColor: Colors.black,
       ),
       child: Scaffold(
@@ -36,7 +38,7 @@ class CreditCardsConceptDetailPage extends StatelessWidget {
                           Text(
                             'Full card',
                             textAlign: TextAlign.center,
-                            style: textTheme.headline6!.copyWith(
+                            style: textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),
                           ),
@@ -46,7 +48,7 @@ class CreditCardsConceptDetailPage extends StatelessWidget {
                           Text(
                             'Rotable the card to view the security code',
                             textAlign: TextAlign.center,
-                            style: textTheme.subtitle2!.copyWith(
+                            style: textTheme.titleSmall!.copyWith(
                               color: Colors.grey[400],
                             ),
                           ),
@@ -66,7 +68,7 @@ class CreditCardsConceptDetailPage extends StatelessWidget {
                         child: Text(
                           'Today',
                           textAlign: TextAlign.left,
-                          style: textTheme.headline6!.copyWith(
+                          style: textTheme.titleLarge!.copyWith(
                             color: Colors.white,
                           ),
                         ),
